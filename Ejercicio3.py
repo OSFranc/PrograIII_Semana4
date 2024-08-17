@@ -1,67 +1,107 @@
-class dispositivos():
-    tipo=""
-    __marca=""
+class vehiculo():
+    origen=""
+    __capacidad=0
+    __ruedas=0
+    marca=""
     modelo=""
-    precio=0
-    __multVenta=0
-    almacenamiento=0
-    ram=0
-    tipoPantalla=""
-    proposito=""
-    año=0
+    categoria=""
+    transmision=""
+    edicion=""
+    color=""
+    tipoFrenos=""
+    bolsasDeAire=0
+    seguro=0
+    precioCompra=0
     precioVenta=0
+    __multiplicadorVenta=0
     
     def __init__(self,):
-        self.__marca="PHR"
-        self.__multVenta=1.7
+        self.__capacidad=5
+        self.__ruedas=4
+        self.__multiplicadorVenta=1.4
     
-    def marca(self):
-        return self.__marca
+    def capacidad(self):
+        return self.__capacidad
+        
+    def ruedas(self):
+        return self.__ruedas
     
-    def multVenta(self):
-        return self.__multVenta
-    
-def asignarDatos(dispositivos,tipoDis,modeloDis,precioDis,almacenamientoDis,ramDis,
-                 pantallaDis,propositoDis,añoDis):
-    dispositivos.tipo=tipoDis
-    dispositivos.modelo=modeloDis
-    dispositivos.precio=precioDis
-    dispositivos.almacenamiento=almacenamientoDis
-    dispositivos.ram=ramDis
-    dispositivos.tipoPantalla=pantallaDis
-    dispositivos.proposito=propositoDis
-    dispositivos.año=añoDis
-    dispositivos.precioVenta=precioDis*dispositivos.multVenta()
+    def multiplicadorVenta(self):
+        return self.__multiplicadorVenta
 
-def obtenerDatos(dispositivos):
-    print("********* Ingresar Datos **********")
-    tipoDis=input("Tipo de Dispositivo (Laptop, Teléfono, Tablet): ")
-    modeloDis=input(f"Modelo de {tipoDis}: ")
-    precioDis=float(input(f"Precio: $"))
-    almacenamientoDis=int(input("Capacidad de almacenamiento (gb): "))
-    ramDis=int(input("Capacidad de RAM (gb): "))
-    pantallaDis=input("Tipo de pantalla: ")
-    propositoDis=input("Propósito (Ej. Gaming): ")
-    añoDis=int(input("Año del Dispositivo: "))
+def pasarDatos(vehiculo,origenPais,marcaVh,modeloVh,categoriaVh,transmisionVh,edicionVh,colorVh
+               ,frenosVh,bolsasAireVh,seguroDelVh,precioDelVh):
     
-    asignarDatos(dispositivos,tipoDis,modeloDis,precioDis,almacenamientoDis,ramDis,
-                 pantallaDis,propositoDis,añoDis)
+    vehiculo.marca=marcaVh
+    vehiculo.origen=origenPais
+    vehiculo.modelo=modeloVh
+    vehiculo.categoria=categoriaVh
+    vehiculo.transmision=transmisionVh
+    vehiculo.edicion=edicionVh
+    vehiculo.color=colorVh
+    vehiculo.tipoFrenos=frenosVh
+    vehiculo.bolsasDeAire=bolsasAireVh
+    vehiculo.seguro=seguroDelVh
+    vehiculo.precioCompra=precioDelVh
+    vehiculo.precioVenta=vehiculo.multiplicadorVenta()*vehiculo.precioCompra
     
-def MostrarDatos(dispositivo):
-    print("*******************")
-    print(f"Tipo: {dispositivo.tipo}")
-    print(f"Marca: {dispositivo.marca()}")
-    print(f"Modelo: {dispositivo.modelo}")
-    print(f"Almacenamiento: {dispositivo.almacenamiento}gb")
-    print(f"RAM: {dispositivo.ram}gb")
-    print(f"Tipo de Pantalla: {dispositivo.tipoPantalla}")
-    print(f"Propósito: {dispositivo.proposito}")
-    print(f"Año: {dispositivo.año}")
-    print(f"Precio de Venta: ${dispositivo.precioVenta}")
+def obtenerDatos(vehiculo):
+    print("********* Ingresar Datos *************")
+    while True:
+        origenPais=  input("Origen (L: Local/ I:Importado): ").lower()
+        if origenPais=="l":
+            origenPais="Local"
+            break
+        elif origenPais=="i":
+            origenPais="Importado"
+            break
+        else:
+            print("Respuesta no válida, ingrese L o I")    
+    marcaVh= input("Marca: ")
+    modeloVh= input("Modelo: ")
+    categoriaVh=input("Categoría del Vehículo (Ej. Sedan): ")
+    transmisionVh=input("Transmisión del Vehículo: ")
+    edicionVh=input(f"Edición del Modelo {modeloVh}: " )
+    colorVh=input("Color: ")
+    frenosVh=input("Tipo de frenos: ")
+    bolsasAireVh=input("Número de Bolsas de Aire: ")
+    while True:
+            seguroDelVh=(input("Estado del seguro (1:Activo / 0:Inactivo): "))
+            if seguroDelVh=="1":
+                seguroDelVh=True
+                break
+            elif seguroDelVh=="0":
+                seguroDelVh=False
+                break
+            else:
+                print("Opción no válida, ingrese 1 o 0")
+                
+    precioDelVh=float(input("Ingrese el precio de compra: $"))
+    
+    pasarDatos(vehiculo,origenPais,marcaVh,modeloVh,categoriaVh,transmisionVh,edicionVh,colorVh
+               ,frenosVh,bolsasAireVh,seguroDelVh,precioDelVh)
 
-dispositivo1=dispositivos()
-obtenerDatos(dispositivo1)
-MostrarDatos(dispositivo1)
+def mostrarDatos(vehiculo):
+    print("*********************************************")
+    print(f"- Origen: {vehiculo.origen}")
+    print(f"- Marca: {vehiculo.marca}")
+    print(f"- Modelo: {vehiculo.modelo}")
+    print(f"- Categoría: {vehiculo.categoria}")
+    print(f"- Capacidad: {vehiculo.capacidad()} pasajeros")
+    print(f"- Numero de Ruedas: {vehiculo.ruedas()}")
+    print(f"- Transmisión: {vehiculo.transmision}")
+    print(f"- Edicion: {vehiculo.edicion}")
+    print(f"- Color: {vehiculo.color}")
+    print(f"- Tipo de frenos: {vehiculo.tipoFrenos}")
+    print(f"- Bolsas de aire: {vehiculo.bolsasDeAire}")
+    print(f"- Estado del Seguro: {vehiculo.seguro}")
+    print(f"- Precio al Público: ${vehiculo.precioVenta}")
+    
 
+carro1=vehiculo()
+obtenerDatos(carro1)
+mostrarDatos(carro1)
+    
+    
     
     

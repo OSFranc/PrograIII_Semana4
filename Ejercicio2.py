@@ -1,107 +1,152 @@
-class vehiculo():
-    origen=""
-    __capacidad=0
-    __ruedas=0
-    marca=""
-    modelo=""
-    categoria=""
-    transmision=""
-    edicion=""
+class cuadernos():
+    __marca=""
+    hojas=0
+    tipoHoja=""
     color=""
-    tipoFrenos=""
-    bolsasDeAire=0
-    seguro=0
-    precioCompra=0
+    pasta=""
+    tamaño=""
+    precio=0
     precioVenta=0
-    __multiplicadorVenta=0
+    __multPrecio=0
+    def __init__(self,):
+        self.__marca="HOJITAS"
+        self.__multPrecio=1.3
+    
+    def marca(self):
+        return self.__marca
+    
+    def multPrecio(self):
+        return self.__multPrecio
+    
+class lapices():
+    __marcaLp=""
+    cantidad=0
+    tamaño=""
+    tipo=""
+    material=""
+    precio=0
+    precioVenta=0
+    __multPrecio=0
     
     def __init__(self,):
-        self.__capacidad=5
-        self.__ruedas=4
-        self.__multiplicadorVenta=1.4
+        self.__marcaLp="RAYITAS"
+        self.__multPrecio=1.3
     
-    def capacidad(self):
-        return self.__capacidad
-        
-    def ruedas(self):
-        return self.__ruedas
+    def marcaLapices(self):
+        return self.__marcaLp
     
-    def multiplicadorVenta(self):
-        return self.__multiplicadorVenta
+    def multPrecio(self):
+        return self.__multPrecio
+    
+def pasarDatosLapices(lapices,cantidadLp,tamañoLp,tipoLp,materialLp,precioLp):
+    lapices.cantidad=cantidadLp
+    lapices.tamaño=tamañoLp
+    lapices.tipo=tipoLp
+    lapices.material=materialLp
+    lapices.precio=precioLp
+    lapices.precioVenta= lapices.multPrecio()*precioLp
+    
+def obtenerDatosLapices(lapices):
+    print(f"************ Ingresar Datos *************")
 
-def pasarDatos(vehiculo,origenPais,marcaVh,modeloVh,categoriaVh,transmisionVh,edicionVh,colorVh
-               ,frenosVh,bolsasAireVh,seguroDelVh,precioDelVh):
-    
-    vehiculo.marca=marcaVh
-    vehiculo.origen=origenPais
-    vehiculo.modelo=modeloVh
-    vehiculo.categoria=categoriaVh
-    vehiculo.transmision=transmisionVh
-    vehiculo.edicion=edicionVh
-    vehiculo.color=colorVh
-    vehiculo.tipoFrenos=frenosVh
-    vehiculo.bolsasDeAire=bolsasAireVh
-    vehiculo.seguro=seguroDelVh
-    vehiculo.precioCompra=precioDelVh
-    vehiculo.precioVenta=vehiculo.multiplicadorVenta()*vehiculo.precioCompra
-    
-def obtenerDatos(vehiculo):
-    print("********* Ingresar Datos *************")
+    cantidadLp=int(input("Cantidad de Lápices por paquete: "))
+    tamañoLp=input("Tamaño de los lápices: ")
     while True:
-        origenPais=  input("Origen (L: Local/ I:Importado): ").lower()
-        if origenPais=="l":
-            origenPais="Local"
+        tipoLp=input("Tipo de Lapices Colores o Grafitos(C / G):").upper()
+        if tipoLp=="C":
+            tipoLp="Colores"
             break
-        elif origenPais=="i":
-            origenPais="Importado"
+        elif tipoLp=="G":
+            tipoLp="Grafito"
             break
         else:
-            print("Respuesta no válida, ingrese L o I")    
-    marcaVh= input("Marca: ")
-    modeloVh= input("Modelo: ")
-    categoriaVh=input("Categoría del Vehículo (Ej. Sedan): ")
-    transmisionVh=input("Transmisión del Vehículo: ")
-    edicionVh=input(f"Edición del Modelo {modeloVh}: " )
-    colorVh=input("Color: ")
-    frenosVh=input("Tipo de frenos: ")
-    bolsasAireVh=input("Número de Bolsas de Aire: ")
+            print("Error, respuesta no válida, ingrese C o G")
+    materialLp=input("Material (Ej. Madera): ")
+    precioLp=float(input("Precio del producto: $"))
+    pasarDatosLapices(lapices,cantidadLp,tamañoLp,tipoLp,materialLp,precioLp)
+    
+def mostrarDatosLapices(lapices):
+    print(f"************ *************")
+    print("Tipo: Lapices")
+    print(f"Marca: {lapices.marcaLapices()}")
+    print(f"Cantidad: {lapices.cantidad}")
+    print(f"Tamaño: {lapices.tamaño}")
+    print(f"Tipo: {lapices.tipo}")
+    print(f"Material: {lapices.material}")
+    print(f"Precio Venta: {lapices.precioVenta}")
+    
+    
+#----------------------------- Funciones Cuadernos------------------------------------------   
+def pasarDatosCuadernos(cuadernos,numHojas,tipoHojasC,colorC,pastaC,tamañoC,precioCompra):
+    cuadernos.hojas=numHojas
+    cuadernos.tipoHojas=tipoHojasC
+    cuadernos.color=colorC
+    cuadernos.pasta=pastaC
+    cuadernos.tamaño=tamañoC
+    cuadernos.precio=precioCompra
+    cuadernos.precioVenta= precioCompra*cuadernos.multPrecio()
+
+def obtenerDatosCuadernos(cuadernos):
+    print("************ Ingresar Datos *************")
+
     while True:
-            seguroDelVh=(input("Estado del seguro (1:Activo / 0:Inactivo): "))
-            if seguroDelVh=="1":
-                seguroDelVh=True
-                break
-            elif seguroDelVh=="0":
-                seguroDelVh=False
-                break
-            else:
-                print("Opción no válida, ingrese 1 o 0")
-                
-    precioDelVh=float(input("Ingrese el precio de compra: $"))
+        numHojas=int(input("Número de Hojas (50 / 100) "))
+        if numHojas==50:
+            break
+        elif numHojas==100:
+            break
+        else: 
+            print("Error, número de hojas no válido")
+    tipoHojasC= input("Tipo de Hoja (Rayas, Cuadricula, Liso): ")
+    colorC= input("Color del Cuaderno: ")
+    pastaC= input("Tipo de pasta (Blanda/Dura): ")
+    tamañoC= input("Tamaño del Cuaderno: ")
+    precioCompra= float(input("Precio de Compra: $"))
+    pasarDatosCuadernos(cuadernos,numHojas,tipoHojasC,colorC,pastaC,tamañoC,precioCompra)
     
-    pasarDatos(vehiculo,origenPais,marcaVh,modeloVh,categoriaVh,transmisionVh,edicionVh,colorVh
-               ,frenosVh,bolsasAireVh,seguroDelVh,precioDelVh)
+def MostrarDatosCuadernos(cuadernos):
+    print(f"************ *************")
+    print("Tipo: Cuaderno")
+    print(f"Marca: {cuadernos.marca()}")
+    print(f"Numero de Hoja: {cuadernos.hojas}")
+    print(f"Tipo de Hojas: {cuadernos.tipoHojas}")
+    print(f"Color :{cuadernos.color}")
+    print(f"Tipo de Pasta: {cuadernos.pasta}")
+    print(f"Tamaño: {cuadernos.tamaño}")
+    print(f"Precio de Venta: {cuadernos.precioVenta}")
 
-def mostrarDatos(vehiculo):
-    print("*********************************************")
-    print(f"- Origen: {vehiculo.origen}")
-    print(f"- Marca: {vehiculo.marca}")
-    print(f"- Modelo: {vehiculo.modelo}")
-    print(f"- Categoría: {vehiculo.categoria}")
-    print(f"- Capacidad: {vehiculo.capacidad()} pasajeros")
-    print(f"- Numero de Ruedas: {vehiculo.ruedas()}")
-    print(f"- Transmisión: {vehiculo.transmision}")
-    print(f"- Edicion: {vehiculo.edicion}")
-    print(f"- Color: {vehiculo.color}")
-    print(f"- Tipo de frenos: {vehiculo.tipoFrenos}")
-    print(f"- Bolsas de aire: {vehiculo.bolsasDeAire}")
-    print(f"- Estado del Seguro: {vehiculo.seguro}")
-    print(f"- Precio al Público: ${vehiculo.precioVenta}")
-    
 
-carro1=vehiculo()
-obtenerDatos(carro1)
-mostrarDatos(carro1)
+#--------------------Iniciar Programa:
+print("************************")
+print("Sistema inventario")
+
+while True:
+    print("Escoja una Opción")
+    opt= input("1. Ingresar Cuadernos / 2. Ingresar Lapices ")
+
+    match opt:
+        case "1":
+            cuaderno1=cuadernos()
+            cuaderno2=cuadernos()
+            obtenerDatosCuadernos(cuaderno1)
+            obtenerDatosCuadernos(cuaderno2)
+            MostrarDatosCuadernos(cuaderno1)
+            MostrarDatosCuadernos(cuaderno2)
     
+        case "2":
+                lapices1=lapices()
+                lapices2=lapices()
+                obtenerDatosLapices(lapices1)
+                obtenerDatosLapices(lapices2)
+                mostrarDatosLapices(lapices1)
+                mostrarDatosLapices(lapices2)
     
+    opt= input("Desea continuar el programa? (S/N)").upper()
+    if opt!="S":
+        break
+            
     
-    
+        
+
+
+
